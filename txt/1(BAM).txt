@@ -1,0 +1,38 @@
+import numpy as np
+
+class BAM:
+    def __init__(self):
+        self.weights = None
+
+    def train(self, X, Y):
+        self.weights = np.dot(Y.T, X)
+
+    def recall(self, Y):
+        recalled_X = np.dot(Y, self.weights)
+        return recalled_X
+
+if __name__ == '__main__':
+    X = np.array([[1, 0, 1],
+                  [0, 1, 0]])
+    Y = np.array([[0, 1],
+                  [1, 0]])
+
+    bam = BAM()
+    bam.train(X, Y)
+
+    test_Y = np.array([[0, 1],
+                       [1, 0]])
+    recalled_X = bam.recall(test_Y)
+    print("Recalled X:", recalled_X)
+
+    X2 = np.array([[1, 1, 0],
+                   [0, 0, 1]])
+    Y2 = np.array([[1, 0],
+                   [0, 1]])
+
+    bam.train(X2, Y2)
+
+    test_Y2 = np.array([[1, 0],
+                        [0, 1]])
+    recalled_X2 = bam.recall(test_Y2)
+    print("Recalled X2:", recalled_X2)
